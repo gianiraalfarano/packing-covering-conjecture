@@ -1,0 +1,5 @@
+certificates/
+outputs/
+__pycache__/
+*.pyc
+*.sage.py
