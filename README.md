@@ -16,16 +16,16 @@ To inspect the data files without running the check, unpack the archive with 7-Z
 
 The data file contains proposed bounds and puncturing sequences. The programs enumerate the parameter cases required by the paper themselves. Each case is either excluded by a direct inequality or matched to the necessary input record; every bound and step used from a record is checked with exact arithmetic.
 
-Tested with SageMath 10.8 (passagemath 10.8.12); the full check took about 1.5 minutes.
+Tested with SageMath 10.8 (passagemath 10.8.12); the full check took about two minutes.
 
-For a small, readable example, type `sage example.sage`. It examines the case $(q,\rho,t,r)=(2,15,3,6)$; it does not replace the full check.
+For a small, readable example, type `sage example.sage`. It examines the case $(q,\rho,t,r)=(2,16,3,6)$ of Appendix A.5 of the paper; it does not replace the full check.
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
 | `verify.sage` | Runs all checks with one command. |
-| `example.sage` | Works through one finite case, $(q,\rho,t,r)=(2,15,3,6)$, in SageMath. |
+| `example.sage` | Works through one finite case, $(q,\rho,t,r)=(2,16,3,6)$, in SageMath. |
 | `proof_data.zip` | Proposed test lengths, weight bounds and puncturing sequences. `verify.sage` unpacks it into `certificates/`: `redundancy/`, `fixed_gaps/`, `extensions/`, `new_finite.json`, and `tails.json`. |
 | `code/verify_range.py` | Redundancy $\rho\le50$. |
 | `code/verify_fixed_gaps.py` | Radius gaps $1\le r-t\le5$ (orders $3\le t\le131$). |

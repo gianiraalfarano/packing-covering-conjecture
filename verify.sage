@@ -13,9 +13,10 @@ assert ZZ(2)**10 == 1024 and QQ(1)/3 + QQ(2)/3 == 1
 if not Path("proof_data.zip").is_file():
     raise SystemExit("Run this command from the repository directory.")
 
-if not Path("certificates/tails.json").is_file():
-    with ZipFile("proof_data.zip") as archive:
-        archive.extractall(".")
+# Always unpack, so that the checked data are exactly those in proof_data.zip
+# (a stale certificates/ folder from an older archive is overwritten).
+with ZipFile("proof_data.zip") as archive:
+    archive.extractall(".")
 
 out = Path("outputs")
 out.mkdir(exist_ok=True)
