@@ -1,4 +1,6 @@
-"""Independent verifier: imports NO generator or search code.
+"""Checker for the large-radius bounds of Section 4.4 and the final finite
+set of Theorem 4.19. The search program that produced the records is not
+needed and is not part of this repository.
 All proof comparisons and all affine-tail checks use exact arithmetic.
 """
 import json
@@ -91,13 +93,13 @@ def finite(tails):
     if not primepower(q):continue
     bound=(192 if q==2 else 48 if q==3 else 26) if t==3 else tails[t]
     if r>=bound:continue
-    h0=max(51,2*r+1,2*r+3+int(q==2) if t==3 else 0)
+    h0=max(51,2*r+3+int(q==2)) if t==3 else max(51,2*r+1)
     for h in range(h0,D):
      key=q,h,t,r;need(key in roots,f'missing {key}');z=roots[key];used.add(key)
      n=z['n'];base=max(h+5*t-1,5*h//2+1)
      need(n>=base and n>=h+t,'test length')
      if n>base:
-      # Exact covering, independently of the generator's integer-root estimate.
+      # Exact covering-volume comparison (no root estimate is trusted).
       need(volume(q**t,n-1,r)<q**(t*h),'length not certified')
      if z['kind']=='length':
       m=2*r-t+2
@@ -122,6 +124,7 @@ def finite(tails):
  need(used==set(roots) and usy==set(sy),'unused records')
  need(counts==data['counts'] and per==data['per_order'],'incorrect counts')
  print('ALL NEW CERTIFICATES VERIFIED',counts,flush=True)
+ (ROOT/'outputs').mkdir(exist_ok=True)
  (ROOT/'outputs/new_verified.json').write_text(json.dumps(dict(counts=counts,per_order=per,status='verified'),indent=2)+'\n')
 
 if __name__=='__main__':finite(verify_tails())

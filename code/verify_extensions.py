@@ -1,5 +1,6 @@
-"""Independent integer checker for variable-radius and finite-boundary proofs.
-No generator module is imported. All parameter tuples are re-enumerated.
+"""Checker for the 1,022 symbolic sequences of Proposition 4.7 and for the
+range of Theorem 4.18 (r <= 2t or r-t <= 15, 3 <= t <= 31).
+The search program that produced the records is not needed and not included. All parameter tuples are re-enumerated.
 """
 import argparse,json
 from math import factorial,isqrt
@@ -28,7 +29,7 @@ def symbolic(directory):
         for e,s in row['chain']:
             require(e>=1 and 1<=s<=t-S and e*t>=r and r>=12*e,'Invalid symbolic parameters')
             # Clear the denominator 5a. This checks the analytic exponent
-            # directly, without a logarithm or a generator search.
+            # directly, without a logarithm.
             need=s-1-W+S
             require(5*a*need <= 5*a*(e*t-2*r+e)+2*(e*t-r),'False symbolic exponent')
             W+=e*(s+1);S+=s
@@ -95,7 +96,7 @@ def layer(directory,t,gap):
     return result
 
 if __name__=='__main__':
-    ap=argparse.ArgumentParser();ap.add_argument('--directory',type=Path,default=Path('../certificates/extensions'))
+    ap=argparse.ArgumentParser();ap.add_argument('--directory',type=Path,default=Path('certificates/extensions'))
     ap.add_argument('--max-t',type=int,default=31);ap.add_argument('--gap',type=int,default=15)
     args=ap.parse_args();require(args.max_t==31 and args.gap==15,'Final theorem range must be checked in full')
     n=symbolic(args.directory)

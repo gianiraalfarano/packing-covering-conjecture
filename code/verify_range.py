@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Independent checker for proof DAGs produced by prove_range.py.
+"""Checker for the redundancy range rho <= 50 (Theorem 4.1 of the paper).
 
-This checker does NOT import the search program, call its dynamic program, or
-trust its reported upper bounds. It checks every local inference, every support
+The input records were produced by a separate search program, which is not
+needed for the verification and is not part of this repository. This checker
+does not trust any bound reported in the records. It checks every local inference, every support
 size in a residual inference, every length inequality, and completeness of the
 finite parameter enumeration. All comparisons use integers.
 
-Usage: python verify_range.py --end 50 --directory certificates
+Usage: python code/verify_range.py --start 1 --end 50 --directory certificates/redundancy
 """
 from __future__ import annotations
 import argparse

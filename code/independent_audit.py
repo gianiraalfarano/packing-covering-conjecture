@@ -1,5 +1,5 @@
-"""Clean checker written from the mathematical certificate conditions.
-Imports no supplied generator/verifier. Standard-library exact arithmetic only.
+"""Separately written checker, based directly on the conditions stated in the
+paper. It imports none of the other programs. Standard-library exact arithmetic only.
 """
 from pathlib import Path
 from fractions import Fraction as F
@@ -7,16 +7,7 @@ from math import comb,factorial
 from collections import Counter
 import json,sys
 ROOT=Path(__file__).resolve().parents[1]
-INPUT=ROOT/'audit_input'
-if not INPUT.exists(): INPUT=ROOT
-BASE=INPUT/'packing_covering_final'
-NEW=INPUT/'packing_covering_completion'
-if not BASE.exists():
- BASE=NEW=ROOT
- BC=ROOT/'certificates'
- NC=ROOT/'certificates'
-else:
- BC=BASE/'certificates';NC=NEW/'certificates'
+BC=NC=ROOT/'certificates'
 
 def must(p,message):
  if not p:raise RuntimeError(message)

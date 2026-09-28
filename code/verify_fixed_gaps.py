@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Independent fixed-gap verifier. Imports the verifier, never the generator.
+"""Checker for the fixed gaps 1 <= r-t <= 5 (Theorem 4.4 of the paper).
+It reuses the basic routines of verify_range.py; the search program that
+produced the records is not needed and is not part of this repository.
 
 Re-enumerates the full finite range, checks all direct inequalities, and
 validates exceptional length proofs and residual/iteration proof graphs.
@@ -82,7 +84,7 @@ def check(a: int, directory: Path) -> dict:
 def main()->None:
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--start',type=int,default=1);ap.add_argument('--end',type=int,default=5)
-    ap.add_argument('--directory',type=Path,default=Path('fixed_gap_certificates'))
+    ap.add_argument('--directory',type=Path,default=Path('certificates/fixed_gaps'))
     args=ap.parse_args();require(1<=args.start<=args.end<=5,'Invalid gap range')
     rows=[check(a,args.directory) for a in range(args.start,args.end+1)]
     out=dict(start=args.start,end=args.end,layers=rows,
