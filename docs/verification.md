@@ -19,13 +19,13 @@ A lower bound $n\ge N$ follows from the elementary bounds stated in the paper or
 
 ## Weight proof graphs
 
-A graph node asserts $d_j\le b$ for every code with given length, field, and redundancy. Each node uses one of five rules: generalized Singleton, an ordinary Hamming/Griesmer distance bound, a syndrome-class ball inequality, fixed-radius iteration, or puncturing a subcode with minimum support. The puncturing rule checks **every possible integer support size** between the known bounds. A parent node may use only earlier checked children. Roots must cover every necessary tuple, and the independent audit checks graph reachability.
+A graph node asserts $d_j\le \bar d$ for every code with given length, field, and redundancy. Each node uses one of five rules: generalized Singleton, an ordinary Hamming/Griesmer distance bound, a syndrome-class ball inequality, fixed-radius iteration, or puncturing a subcode with minimum support. The puncturing rule checks **every possible integer support size** between the known bounds. A parent node may use only earlier checked children. Roots must cover every necessary tuple, and the independent audit checks graph reachability.
 
-For example, the record $(q,\rho,t,r)=(2,15,3,6)$ has $N=68$ and $M=73$. Since $68\le73$, the length bounds are inconclusive. Its proof graph establishes $d_3\le14=2r+2$ for every binary $[68,53]$ code. Run `sage example.sage` to see the covering and length computations and the root node number.
+For example, the record $(q,\rho,t,r)=(2,16,3,6)$ has test length $N=96$, justified by $\mathrm{vol}_8(95,6)<8^{16}$, and $M=137$. Since $96\le137$, the length bounds are inconclusive (the exact covering bound gives only $n\ge112$). Its proof graph has a collision node giving $d_2\le9$ for every binary $[96,80]$ code (radius $3$) and, for every possible value $z\in\{2,\dots,9\}$ of $d_2$, an ordinary-bound node for the residual $[96-z,78]$ code, with $d_1\le6,6,6,6,5,4,4,4$. Hence $d_3\le13\le2r+2$ for every binary $[96,80]$ code. Run `sage example.sage` to see every step.
 
 ## Puncturing sequences and tails
 
-A numerical sequence lists pairs $(e_i,s_i)$. Starting at $(S,W)=(0,0)$, where $S$ is accumulated nullity and $W$ is the number of removed coordinates, a step checks a strict ball inequality at the residual parameters and updates $S\leftarrow S+s_i$ and $W\leftarrow W+e_i(s_i+1)$. It succeeds only if $S=t$ and $W\le2r+2$. Symbolic sequences check the paper's uniform inequalities for whole parameter ranges. Rational tail records check the value and nonnegative slope of affine inequalities at an initial radius, hence cover all larger radii.
+A numerical sequence lists pairs $(\ell_i,s_i)$ of Hamming radii and nullity increases. Starting at $(S,W)=(0,0)$, where $S$ is accumulated nullity and $W$ is the number of removed coordinates, a step checks a strict ball inequality at the residual parameters and updates $S\leftarrow S+s_i$ and $W\leftarrow W+\ell_i(s_i+1)$. It succeeds only if $S=t$ and $W\le2r+2$. Symbolic sequences check the paper's uniform inequalities for whole parameter ranges. Rational tail records check the value and nonnegative slope of affine inequalities at an initial radius, hence cover all larger radii.
 
 ## Detailed programs and coverage
 
@@ -39,4 +39,4 @@ A numerical sequence lists pairs $(e_i,s_i)$. Starting at $(S,W)=(0,0)$, where $
 
 The ranges overlap. The checkers generate expected tuples independently and reject missing or duplicate input records. `independent_audit.py` imports none of the other programs and uses a different binomial-coefficient computation for balls. All proof comparisons use integers or rational numbers, never floating point.
 
-`verify.sage` executes each program using SageMath's Python interpreter. If a check fails, it stops and gives the corresponding log filename in `outputs/`. The wrapper deliberately checks arithmetic only: source labels in the article must be reviewed separately after the final TeX reorganization.
+`verify.sage` executes each program using SageMath's Python interpreter. If a check fails, it stops and gives the corresponding log filename in `outputs/`.
